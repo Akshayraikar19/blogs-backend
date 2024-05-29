@@ -21,16 +21,7 @@ const postValidationSchema = {
         },
         trim: true,   // trim, normalize is sanitailzer, normailze is used to make all letters is small letter.
     },
-    img: {
-        in: ['body'],
-        exists: {
-            errorMessage: ' image is required'
-        },
-        notEmpty: {
-            errorMessage: 'image cannot be empty'
-        },
-        trim: true 
-    }
+   
    
 }
 

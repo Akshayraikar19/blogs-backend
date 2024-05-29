@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken')
 const bcryptjs = require('bcryptjs')
 const { validationResult } = require('express-validator')
 const usersCltr = {}
+const path = require('path');
+const fs = require('fs');
 
 usersCltr.register = async (req, res) => {
     const errors = validationResult(req) 
@@ -78,7 +80,7 @@ usersCltr.update = async (req, res) => {
     } catch(err) {
         console.log(err) 
         res.status(500).json({ error: 'something went wrong'})
-    }
+    };
 }
 
 // usersCltr.checkEmail = async (req, res) => {
@@ -90,6 +92,27 @@ usersCltr.update = async (req, res) => {
 //         res.json({ "is_email_registered": false })
 //     }
 // }
+
+
+
+
+usersCltr.uploadProfilePicture = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        let profilePicture = req.file.path // Replace backslashes with forward slashes
+
+        profilePicture = profilePicture.replace(/\\/g, '/');
+        const user = await User.findByIdAndUpdate(userId, { profilePicture }, { new: true });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Profile picture updated successfully', user });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+};
 
 
 

@@ -59,16 +59,7 @@ const userRegisterValidationSchema = {
         },
         trim: true      
     },
-    profilepicture: {
-        in: ['body'],
-        exists: {
-            errorMessage: 'profilepicture is required'
-        },
-        notEmpty: {
-            errorMessage: 'profile cannot be empty '
-        },
-        trim: true      
-    }
+  
 }
 
 module.exports = userRegisterValidationSchema
