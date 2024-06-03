@@ -89,5 +89,27 @@ postCltr.myPosts = async(req, res) => {
     }
 }
 
+postCltr.uploadPostPicture = async (req, res) => {
+    try {
+        const postId = req.params.id;
+        let postPicture = req.file.path; // Replace backslashes with forward slashes
+        postPicture = postPicture.replace(/\\/g, '/');
+        
+        // Find the post by ID and update the postPicture field
+        const post = await Post.findByIdAndUpdate(postId, { postPicture }, { new: true });
+        
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        res.status(200).json({ message: 'Post updated successfully', post });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+};
+
+
+
 
 module.exports = postCltr  

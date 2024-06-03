@@ -172,6 +172,8 @@ app.get('/api/users/profile', authenticateUser, usersCltr.account);
 app.put('/api/users/profile', authenticateUser, checkSchema(userEditValidationSchema), usersCltr.update);
 
 app.post('/api/users/upload-profile-picture', authenticateUser, upload.single('profilePicture'), usersCltr.uploadProfilePicture)
+app.post('/api/posts/:id/upload-post', authenticateUser, upload.single('postPicture'), postCltr.uploadPostPicture);
+
 
 // Post routes
 app.get('/api/posts/myposts', authenticateUser, postCltr.myPosts);

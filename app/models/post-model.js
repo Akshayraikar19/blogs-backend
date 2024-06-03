@@ -12,7 +12,7 @@ const postSchema = new Schema({
         type: Schema.Types.ObjectId,// array of reference to comment model
         ref: 'Comment'
     }],
-    img: String
+    postPicture: String
 }, {timestamps: true})
 
 const Post = model('Post', postSchema)
